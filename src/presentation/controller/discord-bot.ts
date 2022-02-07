@@ -6,7 +6,11 @@ import { sanitizeCommand } from '../helper/sanitize-command'
 export const discordBotController = async (listener: Message): Promise<void> => {
   const sanitizedCommand = sanitizeCommand(listener.content)
   const githubUser = await getGithubUser(sanitizedCommand)
-  const embededMessage = makeEmbed(githubUser)
 
-  await listener.channel.send({ embeds: [embededMessage] })
+  if (githubUser) {
+    const embededMessage = makeEmbed(githubUser)
+    await listener.channel.send({ embeds: [embededMessage] })
+  } else {
+    await listener.reply(`O usuário ${sanitizedCommand} não existe... 🙁`)
+  }
 }
