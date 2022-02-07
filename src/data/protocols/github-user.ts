@@ -17,7 +17,7 @@ export interface GithubUser {
   received_events_url: string
   type: string
   site_admin: false
-  name: string
+  name?: string
   company?: string
   blog?: string
   location?: string

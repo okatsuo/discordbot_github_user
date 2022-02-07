@@ -24,10 +24,10 @@ const buildField = (user: GithubUser): EmbedFieldData[] => {
 export const makeEmbed = (user: GithubUser): MessageEmbed => {
   const embedMessage = new MessageEmbed()
     .setColor(embedColor)
-    .setTitle(user.name)
+    .setTitle(user.name ?? user.login)
     .setURL(user.html_url)
     .setAuthor({ name: user.login, iconURL: githubIcon, url: user.html_url })
-    .setDescription(user.bio ?? `${user.name} ainda está pensando em uma frase de efeito para o seu perfil`)
+    .setDescription(user.bio ?? `${user.name ?? user.login} ainda está pensando em uma frase de efeito para o seu perfil`)
     .setThumbnail(user.avatar_url)
     .addFields(buildField(user))
     .setTimestamp()
