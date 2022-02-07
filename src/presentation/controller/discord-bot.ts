@@ -1,5 +1,5 @@
 import { Message } from 'discord.js'
-import { makeEmbed } from '../../data/github-user'
+import { makeEmbed } from '../../data/use-case/github-user'
 import { getGithubUser } from '../../infra/getGithubUser'
 import { sanitizeCommand } from '../helper/sanitize-command'
 

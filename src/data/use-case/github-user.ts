@@ -1,5 +1,5 @@
 import { EmbedFieldData, MessageEmbed } from 'discord.js'
-import { GithubUser } from './protocols'
+import { GithubUser } from '../protocols'
 
 const githubIcon = 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png'
 const embedColor = '#FFC75F'
