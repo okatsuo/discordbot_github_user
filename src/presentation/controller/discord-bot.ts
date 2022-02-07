@@ -4,13 +4,13 @@ import { getGithubUser } from '../../infra/getGithubUser'
 import { sanitizeCommand } from '../helper/sanitize-command'
 
 export const discordBotController = async (listener: Message): Promise<void> => {
-  const sanitizedCommand = sanitizeCommand(listener.content)
-  const githubUser = await getGithubUser(sanitizedCommand)
+  const githubUserName = sanitizeCommand(listener.content)
+  const githubUser = await getGithubUser(githubUserName)
 
   if (githubUser) {
     const embededMessage = makeEmbed(githubUser)
     await listener.channel.send({ embeds: [embededMessage] })
   } else {
-    await listener.reply(`O usuário ${sanitizedCommand} não existe... 🙁`)
+    await listener.reply(`O usuário ${githubUserName} não existe... 🙁`)
   }
 }
