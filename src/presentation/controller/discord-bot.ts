@@ -1,16 +1,19 @@
 import { Message } from 'discord.js'
 import { makeEmbed } from '../../data/use-case/github-user'
-import { getGithubUser } from '../../infra/getGithubUser'
+import { internalError } from '../errors/internal-error'
 import { sanitizeCommand } from '../helper/sanitize-command'
 
 export const discordBotController = async (listener: Message): Promise<void> => {
   const githubUserName = sanitizeCommand(listener.content)
-  const githubUser = await getGithubUser(githubUserName)
 
-  if (githubUser) {
-    const embededMessage = makeEmbed(githubUser)
+  try {
+    const embededMessage = await makeEmbed(githubUserName)
     await listener.channel.send({ embeds: [embededMessage] })
-  } else {
-    await listener.reply(`O usuário ${githubUserName} não existe... 🙁`)
+  } catch (error) {
+    if (error instanceof Error && error.message.includes('404')) {
+      await listener.reply(`O usuário ${githubUserName} não existe... 🙁`)
+    } else {
+      await listener.reply(internalError())
+    }
   }
 }

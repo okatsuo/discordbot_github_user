@@ -1,4 +1,5 @@
 import { EmbedFieldData, MessageEmbed } from 'discord.js'
+import { getGithubUser } from '../../infra/getGithubUser'
 import { GithubUser } from '../protocols'
 
 const githubIcon = 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png'
@@ -21,7 +22,9 @@ const buildField = (user: GithubUser): EmbedFieldData[] => {
   return fields
 }
 
-export const makeEmbed = (user: GithubUser): MessageEmbed => {
+export const makeEmbed = async (githubUser: string): Promise<MessageEmbed> => {
+  const user = await getGithubUser(githubUser)
+
   const embedMessage = new MessageEmbed()
     .setColor(embedColor)
     .setTitle(user.name ?? user.login)
