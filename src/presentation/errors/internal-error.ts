@@ -1,1 +1,1 @@
-export const internalError = (): string => 'Problema interno, avise o suporte.'
+export const internalError = (): string => 'Problema interno, por favor avise o suporte.'
